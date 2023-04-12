@@ -22,7 +22,6 @@ class ELMLoss(nn.Module):
         index.scatter_(1, target.data.view(-1, 1), 1)
         index_float = index.type(torch.cuda.FloatTensor)
 
-
         ### maximum other class ###
         x_ = x.clone()
         ones = torch.ones_like(x_, dtype=torch.uint8) * 1e+8 * -1
@@ -32,17 +31,14 @@ class ELMLoss(nn.Module):
         index2.scatter_(1, x_.data.view(-1, 1), 1)
         index_float2 = index2.type(torch.cuda.FloatTensor)
 
-
         ### settting large margin ###
         batch_m1 = torch.matmul(self.m_list[None, :], index_float.transpose(0,1))
         batch_m1 = batch_m1.view((-1, 1))
         batch_m2 = torch.matmul(self.m_list[None, :], index_float2.transpose(0,1))
         batch_m2 = batch_m2.view((-1, 1))
 
-
         x_m = x - batch_m1 + batch_m2*self.lambda
         output = torch.where(index, x_m, x)
-
 
         return F.cross_entropy(self.s*output, target, weight=self.weight)
 
@@ -50,7 +46,6 @@ class ELMLoss(nn.Module):
 if __name__ == '__main__':
     ### get class number list ###    
     cls_num_list = train_dataset.get_cls_num_list()
-
 
     ### criate loss function ###
     criterion = ELMLoss(cls_num_list = cls_num_list, lamda=1.0)
