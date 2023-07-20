@@ -7,7 +7,7 @@ LDAM loss, which minimizes a margin-based generalization bound, is widely utiliz
 <br />
 
 ## How to use
-1. Please refer to LDAM's Github page [[LDAM-DRW]](https://github.com/kaidic/LDAM-DRW)
+1. Please refer to LDAM-DRW's Github page [[LDAM-DRW]](https://github.com/kaidic/LDAM-DRW)
 2. Replace the loss function with ELM loss from "loss.py"
 
 ## Citation
